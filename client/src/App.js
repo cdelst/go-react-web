@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-import Title from './Title'
+import "./css/App.css";
+import Title from "components/Title";
+import IntroCardContainer from "components/IntroCardContainer";
+import React from "react";
+import { MuiThemeProvider } from "material-ui";
+import Header from "components/Header";
 
 function App() {
   return (
     <div className="App">
-      <Title/>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MuiThemeProvider>
+        <Header />
+        <header className="App-header">
+          <IntroCardContainer />
+        </header>
+      </MuiThemeProvider>
     </div>
   );
 }

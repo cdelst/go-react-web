@@ -1,20 +1,17 @@
 /*  src/Title.css  */
-.Title {
+.Title-background {
     box-sizing: border-box;
     width: 100%;
     justify-content: left;
     align-items: baseline;
-    padding: 1em;
-    margin-bottom: 2em;
-    background-color: rgb(192, 45, 26);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: rgb(86, 86, 86);
     color: #fff;
+    min-height: 5vmin;
 }
 
 .Title-header {
     width: 30px;
     
-}
-
-.Title-subtitle {
-    padding: 1rem;
 }
