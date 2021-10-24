@@ -1,15 +1,23 @@
 import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import React from "react";
+import logo512 from "images/logo-512.png";
 
 const useStyles = makeStyles(() => ({
   header: {
-    backgroundColor: "#400CCC",
+    backgroundColor: "#ffffff",
+    width: "165px",
+    float: "left",
+    display: "block",
+    left: "0",
+    borderRadius: "10px",
+    margin: "1rem",
   },
   logo: {
     fontFamily: "Oswald, sans-serif",
     fontWeight: 600,
-    color: "#FFFEFE",
+    color: "#000000",
     textAlign: "left",
+    height: "100px",
   },
   subtext: {
     fontFamily: "Oswald, sans-serif",

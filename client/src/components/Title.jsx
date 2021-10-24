@@ -1,10 +1,11 @@
 import React from "react";
 import "css/Title.css";
+import logo512 from "../images/logo-512.png";
 
 function Title() {
   return (
     <div className="Title-background">
-      <h1 className="Title-header">CASE</h1>
+      <img className="App-logo" src={logo512} alt="signature" />
     </div>
   );
 }

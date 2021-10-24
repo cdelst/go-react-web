@@ -1,3 +1,41 @@
-.IntroCardContainer {
-    background: #61dafb;
+.IntroContainer {
+    width: 350px;
+    margin-left: 8rem;
 }
+
+.IntroContainer-content {
+    text-align: left;
+    padding: .5rem;
+    color: #ffffff;
+}
+
+.IntroContainer-content--intro {
+    font-family: Fira Code, sans-serif;
+    font-weight: 400;
+    letter-spacing: -1px;
+    font-size: 16px;
+    text-align: left;
+    width: 200px;
+}
+
+.IntroContainer-content--name {
+    font-family: Fira Code, sans-serif;
+    font-weight: 600;
+    font-size: 125px;
+    letter-spacing: -10px;
+    text-align: left;
+    margin-top: -30px;
+    margin-bottom: -20px;
+    margin-left: -8px;
+}
+
+.IntroContainer-content--occupation {
+    font-family: Fira Code, sans-serif;
+    font-weight: 500;
+    letter-spacing: -1px;
+    font-size: 26px;
+    text-align: left;
+}
+
+
+
