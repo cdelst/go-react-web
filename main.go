@@ -1,29 +1,54 @@
 package main
 
 import (
-  "net/http"
+	"net/http"
 
-  "github.com/gin-gonic/contrib/static"
-  "github.com/gin-gonic/gin"
+	"github.com/cdelst/go-react-web/server"
+
+	"github.com/gin-gonic/contrib/static"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-  // Set the router as the default one shipped with Gin
-  router := gin.Default()
+	// Set the router as the default one shipped with Gin
+	router := gin.Default()
+	err := server.InitInfluxClients()
+	defer server.InfluxClient.Close()
 
-  // Serve frontend static files
-  router.Use(static.Serve("/", static.LocalFile("./client/build", true)))
+	if err != nil {
+		panic(err)
+	}
 
-  // Setup route group for the API
-  api := router.Group("/api")
-  {
-    api.GET("/", func(c *gin.Context) {
-      c.JSON(http.StatusOK, gin.H{
-        "message": "pong",
-      })
-    })
-  }
+	// Serve frontend static files
+	router.Use(static.Serve("/", static.LocalFile("./client/build", true)))
 
-  // Start and run the server
-  router.Run(":5000")
+	// Setup route group for the API
+	api := router.Group("/api")
+	{
+		api.POST("/location", func(c *gin.Context) {
+
+			locationPayload, err := server.ParseLocationPayload(c.Request.Body)
+			if err != nil {
+				panic(err)
+				return
+			}
+
+			server.FilterAndWriteLocationData(locationPayload)
+
+			c.JSON(http.StatusOK, gin.H{
+				"result": "ok",
+			})
+		})
+
+		api.POST("/query", func(c *gin.Context) {
+
+			server.GetLastPoint()
+			c.JSON(http.StatusOK, gin.H{
+				"result": "ok",
+			})
+		})
+	}
+
+	// Start and run the server
+	router.Run(":5000")
 }

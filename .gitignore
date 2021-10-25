@@ -11,6 +11,9 @@
 # production
 /build
 
+# security
+aws_access_values
+
 # misc
 .DS_Store
 .env.local
