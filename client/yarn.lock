@@ -1303,6 +1303,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@influxdata/influxdb-client@1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@influxdata/influxdb-client/-/influxdb-client-1.19.0.tgz#42850c945a75c68bae5bdc91e49b4785acfe637a"
+  integrity sha512-fxQ+8XKPMKmJw2KaaWTScylQI18pG/hXpeJfhzWhtwZHa5VL5AFZMaCRW3utz1q+CqQN/9JD8nLKkehwaiyILg==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz"
@@ -4528,6 +4533,11 @@ dotenv-expand@5.1.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/dotenv-expand/-/dotenv-expand-5.1.0.tgz"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
+
+dotenv@10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
+  integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
 dotenv@8.2.0:
   version "8.2.0"
@@ -11400,6 +11410,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript@4.4.4:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
+  integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
 
 ua-parser-js@^0.7.18:
   version "0.7.28"
