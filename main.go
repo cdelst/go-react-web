@@ -9,12 +9,18 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load("client/.env")
+	if err != nil {
+		panic(err)
+	}
+
 	// Set the router as the default one shipped with Gin
 	router := gin.Default()
-	err := server.InitInfluxClients()
+	err = server.InitInfluxClients()
 	defer server.InfluxClient.Close()
 
 	if err != nil {

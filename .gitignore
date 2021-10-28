@@ -21,7 +21,7 @@ aws_access_values
 .env.test.local
 .env.production.local
 .idea
-.env
+client/.env
 
 npm-debug.log*
 yarn-debug.log*

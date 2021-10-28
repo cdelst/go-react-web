@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "css/IntroCardContainer.css";
-import axios from "axios";
+import IntroCard from "./IntroCard";
 
 const TenMinutes = 600000; // in ms
 
+const Geocodio = require("geocodio-library-node");
+const geocoder = new Geocodio(process.env.REACT_APP_GEOCODIO_API_KEY);
+
 const IntroCardContainer = () => {
-  let locationFromStorage = localStorage.getItem("location");
-  const [location, setLocation] = React.useState(locationFromStorage);
+  let locationFromStorage = JSON.parse(localStorage.getItem("location"));
+  const [location, setLocation] = useState(locationFromStorage);
 
-  console.log("location from localStorage: " + location);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (location != null) {
-      let storedDate = Date.parse(location["timestamp"]);
+      let storedDate = parseInt(location["last_updated"]);
       let now = Date.now();
+
       if (now - storedDate > TenMinutes) {
         fetchAndStoreLocation();
         console.log("Longer than 10 minutes since last fetch");
@@ -25,6 +27,12 @@ const IntroCardContainer = () => {
       console.log("localStorage empty, fetching");
     }
   }, []);
+
+  async function getLocation() {
+    let response = await fetch("api/query");
+    let data = await response.json();
+    return data;
+  }
 
   // Fetch Format:
   // altitude: 66
@@ -38,29 +46,29 @@ const IntroCardContainer = () => {
   // timestamp: "2021-10-24T01:18:04Z"
   // vertical_accuracy: 22
   const fetchAndStoreLocation = () => {
-    fetch("api/query")
-      .then((res) => res.json())
-      .then((location) => {
-        setLocation(location);
-        localStorage.setItem("location", JSON.stringify(location));
-      });
+    getLocation().then((data) => {
+      let tempLocation = data;
+
+      let query =
+        tempLocation["latitude"].toFixed(7) +
+        "," +
+        tempLocation["longitude"].toFixed(7);
+
+      geocoder
+        .reverse(query)
+        .then((response) => {
+          tempLocation["last_updated"] = Date.now();
+          tempLocation["geocodio_results"] = response.results[0];
+          setLocation(tempLocation);
+          localStorage.setItem("location", JSON.stringify(tempLocation));
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
   };
 
-  console.log(location);
-
-  return (
-    <div className="IntroContainer">
-      <div className="IntroContainer-content">
-        <div className="IntroContainer-content--intro">
-          hi there! my name is
-        </div>
-        <div className="IntroContainer-content--name">case.</div>
-        <div className="IntroContainer-content--occupation">
-          <div>developer + student</div>
-        </div>
-      </div>
-    </div>
-  );
+  return <IntroCard />;
 };
 
 export default IntroCardContainer;

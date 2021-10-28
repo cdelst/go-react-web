@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	Latitude  int = 0
-	Longitude     = 1
+	Longitude  int = 0
+	Latitude     = 1
 )
 
 type LocationPayload struct {
