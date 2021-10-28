@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/cdelst/go-react-web/server"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
@@ -22,33 +24,38 @@ func main() {
 	// Serve frontend static files
 	router.Use(static.Serve("/", static.LocalFile("./client/build", true)))
 
-	// Setup route group for the API
-	api := router.Group("/api")
-	{
-		api.POST("/location", func(c *gin.Context) {
+	router.POST("/location", func(c *gin.Context) {
 
-			locationPayload, err := server.ParseLocationPayload(c.Request.Body)
-			if err != nil {
-				panic(err)
-				return
-			}
+		locationPayload, err := server.ParseLocationPayload(c.Request.Body)
+		if err != nil {
+			panic(err)
+			return
+		}
 
-			server.FilterAndWriteLocationData(locationPayload)
+		server.FilterAndWriteLocationData(locationPayload)
 
-			c.JSON(http.StatusOK, gin.H{
-				"result": "ok",
-			})
+		c.JSON(http.StatusOK, gin.H{
+			"result": "ok",
 		})
+	})
 
-		api.POST("/query", func(c *gin.Context) {
+	router.GET("/api/query", func(c *gin.Context) {
 
-			server.GetLastPoint()
-			c.JSON(http.StatusOK, gin.H{
-				"result": "ok",
-			})
-		})
-	}
+		val, _ := server.GetLastPoint()
+		valBytes, err := json.Marshal(val)
+		if err != nil {
+			panic(err)
+		}
+		c.Data(http.StatusOK, "application/json", valBytes)
+	})
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:  []string{"http://localhost:3000"},
+		AllowMethods:  []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
+		AllowHeaders:  []string{"Origin", "Content-Length", "Content-Type"},
+		ExposeHeaders: []string{"X-Total-Count"},
+	}))
 
 	// Start and run the server
-	router.Run(":5000")
+	router.Run(":3001")
 }
