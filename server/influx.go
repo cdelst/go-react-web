@@ -21,16 +21,16 @@ var (
 
 type LocationRecord struct {
 	Timestamp          time.Time `json:"timestamp"`
-	Latitude           float64   `json:"latitude,omitempty"`
-	Longitude          float64   `json:"longitude,omitempty"`
-	Altitude           int       `json:"altitude,omitempty"`
-	Speed              int       `json:"speed,omitempty"`
-	HorizontalAccuracy int       `json:"horizontal_accuracy,omitempty"`
-	VerticalAccuracy   int       `json:"vertical_accuracy,omitempty"`
-	Motion             string    `json:"motion,omitempty"`
-	DeviceId           string    `json:"device_id,omitempty"`
-	BatteryState       bool      `json:"battery_state,omitempty"`
-	BatteryLevel       float64   `json:"battery_level,omitempty"`
+	Latitude           float64   `json:"latitude"`
+	Longitude          float64   `json:"longitude"`
+	Altitude           int       `json:"altitude"`
+	Speed              int       `json:"speed"`
+	HorizontalAccuracy int       `json:"horizontal_accuracy"`
+	VerticalAccuracy   int       `json:"vertical_accuracy"`
+	Motion             string    `json:"motion"`
+	DeviceId           string    `json:"device_id"`
+	BatteryState       bool      `json:"battery_state"`
+	BatteryLevel       float64   `json:"battery_level"`
 }
 
 func WriteLocationEntry(entry LocationEntry) {

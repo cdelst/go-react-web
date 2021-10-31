@@ -1,5 +1,7 @@
 import React from "react";
 import "css/IntroCardContainer.css";
+import { FaCode, FaGraduationCap, FaPlus } from "react-icons/fa";
+import LocationVariable from "./LocationVariable";
 
 const IntroCard = () => {
   return (
@@ -10,7 +12,15 @@ const IntroCard = () => {
         </div>
         <div className="IntroContainer-content--name">case.</div>
         <div className="IntroContainer-content--occupation">
-          <div>developer + student</div>
+          <LocationVariable
+            icon={<FaCode className="IntroContainer-content--icon" />}
+            value={"developer"}
+          />{" "}
+          <FaPlus className="IntroContainer-content--icon" />{" "}
+          <LocationVariable
+            icon={<FaGraduationCap className="IntroContainer-content--icon" />}
+            value={"student"}
+          />
         </div>
       </div>
     </div>

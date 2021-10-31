@@ -1,4 +1,5 @@
 import "./css/App.css";
+import LocationSummaryContainer from "components/LocationSummaryContainer";
 import IntroCardContainer from "components/IntroCardContainer";
 import React from "react";
 import Title from "./components/Title";
@@ -6,11 +7,9 @@ import Title from "./components/Title";
 function App() {
   return (
     <div className="App">
-      <div>
-        <Title />
-      </div>
       <div className="body">
         <IntroCardContainer />
+        <LocationSummaryContainer />
       </div>
     </div>
   );

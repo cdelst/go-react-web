@@ -1,0 +1,32 @@
+.LocationSummary {
+    min-width: 300px;
+    max-width: 550px;
+    margin-left: 10vw;
+    margin-top: 3rem;
+    font-size: 20px;
+    font-family: Fira Code, sans-serif;
+    font-weight: 400;
+    color: var(--main-secondary-color);
+    padding: .5rem;
+    text-align: left;
+}
+
+.LocationSummary-content {
+    flex-wrap: wrap;
+}
+
+.LocationSummary-content--time {
+    font-size: 12px;
+    font-family: Fira Code, sans-serif;
+    font-weight: 300;
+    padding-top: .5rem;
+}
+
+.LocationSummary-content--variableText {
+    padding-left: 7px;
+}
+
+.LocationSummary-loader {
+
+}
+

@@ -1,0 +1,14 @@
+.LocationVariable {
+    display: inline-block;
+}
+
+.LocationVariable-text {
+    font-weight: bold;
+    display: inline-block;
+    margin-left: .5rem;
+    color: var(--main-accent-color);
+}
+
+.LocationVariable-icon {
+    display: inline-block;
+}
