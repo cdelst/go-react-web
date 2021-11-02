@@ -11,14 +11,14 @@ const IntroCard = () => {
           hi there! my name is
         </div>
         <div className="IntroContainer-content--name">case.</div>
-        <div className="IntroContainer-content--occupation">
+        <div>
           <LocationVariable
-            icon={<FaCode className="IntroContainer-content--icon" />}
+            icon={<FaCode className="LocationVariable-icon" />}
             value={"developer"}
           />{" "}
           <FaPlus className="IntroContainer-content--icon" />{" "}
           <LocationVariable
-            icon={<FaGraduationCap className="IntroContainer-content--icon" />}
+            icon={<FaGraduationCap className="LocationVariable-icon" />}
             value={"student"}
           />
         </div>

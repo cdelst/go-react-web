@@ -1,14 +1,21 @@
 .LocationVariable {
     display: inline-block;
+    color: var(--main-primary-color);
+    vertical-align: middle;
 }
 
 .LocationVariable-text {
     font-weight: bold;
     display: inline-block;
     margin-left: .5rem;
-    color: var(--main-accent-color);
+    color: var(--main-primary-color);
+    vertical-align: middle;
 }
 
 .LocationVariable-icon {
     display: inline-block;
+    font-size: 1rem;
+    vertical-align: middle;
+    width: auto;
+    height: auto;
 }

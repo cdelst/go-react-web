@@ -26,15 +26,23 @@ const LocationSummary = (props) => {
     <div className="LocationSummary">
       {motionVerb ? (
         <div className="LocationSummary-content">
-          {v("address", address)} +/-
-          {v("horizontalAccuracy", horizontalAccuracy)}ft <br />
-          {v("motion", motionVerb)}, {v("speed", speed)}mph <br />
-          {v("altitude", altitude)}ft +/-{" "}
-          {v("verticalAccuracy", verticalAccuracy)}ft <br />
-          {v("batteryStatus", batteryStatus)} at{" "}
-          {v("batteryPercent", batteryPercent)}%.
-          <div className="LocationSummary-content--time">
-            updated {v("pastTimeSentence", pastTimeSentence)}
+          <div>
+            {v("motion", motionVerb)}, {v("speed", speed)}mph{" "}
+          </div>
+          <div>
+            {v("altitude", altitude)}ft within{" "}
+            {v("verticalAccuracy", verticalAccuracy)}ft{" "}
+          </div>
+          <div>
+            {v("batteryStatus", batteryStatus)} at{" "}
+            {v("batteryPercent", batteryPercent)}%.
+          </div>
+          <div>
+            {v("address", address)} within{" "}
+            {v("horizontalAccuracy", horizontalAccuracy)}ft{" "}
+          </div>
+          <div>
+            <div>{v("pastTimeSentence", pastTimeSentence)}</div>
           </div>
         </div>
       ) : (

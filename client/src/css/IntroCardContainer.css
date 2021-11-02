@@ -1,6 +1,6 @@
 .IntroContainer {
     width: 350px;
-    margin-left: 10vw;
+    margin-left: 5vw;
 }
 
 .IntroContainer-content {
@@ -16,7 +16,7 @@
     font-size: 16px;
     text-align: left;
     width: 200px;
-    color: var(--main-accent-color)
+    color: var(--main-primary-color)
 }
 
 .IntroContainer-content--name {
@@ -38,12 +38,6 @@
     text-align: left;
     vertical-align: middle;
     color: var(--main-primary-color);
-}
-
-.IntroContainer-content--icon {
-    font-size: 22px;
-    vertical-align: middle;
-    color: var(--main-secondary-color);
 }
 
 

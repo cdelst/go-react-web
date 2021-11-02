@@ -2,10 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;600;700&display=swap');
 
 :root {
-  --main-bg-color: #1a203b;
-  --main-primary-color: #FFF1C1;
-  --main-secondary-color: #36a0d3;
-  --main-accent-color: #F76262;
+  --main-bg-color: #033450;
+  --main-primary-color: #fca789;
+  --main-secondary-color: #fca789;
+  --main-accent-color: #FAFAFA;
 }
 
 body {

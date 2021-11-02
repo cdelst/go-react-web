@@ -1,7 +1,7 @@
 .LocationSummary {
     min-width: 300px;
-    max-width: 550px;
-    margin-left: 10vw;
+    max-width: 600px;
+    margin-left: 5vw;
     margin-top: 3rem;
     font-size: 20px;
     font-family: Fira Code, sans-serif;
@@ -13,13 +13,25 @@
 
 .LocationSummary-content {
     flex-wrap: wrap;
+    line-height: 2rem;
 }
 
 .LocationSummary-content--time {
     font-size: 12px;
     font-family: Fira Code, sans-serif;
     font-weight: 300;
-    padding-top: .5rem;
+    margin-left: .5rem;
+    vertical-align: middle;
+}
+
+.LocationSummary-content--entry {
+    background-color: #022a3f;
+    display: inline-block;
+    margin-top: .5rem;
+    border-radius: 5px;
+    vertical-align: middle;
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
 
 .LocationSummary-content--variableText {
@@ -30,3 +42,11 @@
 
 }
 
+@media only screen and (max-width: 1450px) {
+    /* For mobile phones: */
+    [class*="LocationSummary"] {
+        font-size: 12px;
+        margin-top: 1rem;
+
+    }
+}

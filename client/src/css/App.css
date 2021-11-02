@@ -12,7 +12,9 @@
 }
 
 .body {
-  padding-top: 10vw;
+  margin-top: 5vw;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .App-header {
