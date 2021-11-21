@@ -22,6 +22,7 @@ func main() {
 	router := gin.Default()
 	err = server.InitInfluxClients()
 	defer server.InfluxClient.Close()
+	server.InitCache()
 
 	if err != nil {
 		panic(err)
@@ -29,9 +30,8 @@ func main() {
 
 	// Serve frontend static files
 	router.Use(static.Serve("/", static.LocalFile("./client/build", true)))
-
+	
 	router.POST("/location", func(c *gin.Context) {
-
 		locationPayload, err := server.ParseLocationPayload(c.Request.Body)
 		if err != nil {
 			panic(err)
@@ -46,12 +46,28 @@ func main() {
 	})
 
 	router.GET("/api/query", func(c *gin.Context) {
-
-		val, _ := server.GetLastPoint()
+		val := server.GetLastPoint()
 		valBytes, err := json.Marshal(val)
 		if err != nil {
 			panic(err)
 		}
+		c.Data(http.StatusOK, "application/json", valBytes)
+	})
+
+	router.GET("/api/coordinates-from/:start", func(c *gin.Context) {
+		start, found := c.Params.Get("start")
+		if !found {
+			c.JSON(http.StatusBadRequest, "Not a valid start parameter.")
+			return
+		}
+
+		coords := server.GetCoordsFrom(start)
+
+		valBytes, err := json.Marshal(coords)
+		if err != nil {
+			panic(err)
+		}
+
 		c.Data(http.StatusOK, "application/json", valBytes)
 	})
 

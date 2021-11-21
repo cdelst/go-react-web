@@ -9,51 +9,13 @@ import (
 	"time"
 )
 
-const (
-	Longitude  int = 0
-	Latitude     = 1
-)
-
-type LocationPayload struct {
-	Locations []LocationEntry `json:"locations"`
-}
-
-type LocationEntry struct {
-	Type     string `json:"type"`
-	Geometry struct {
-		Type        string    `json:"type"`
-		Coordinates []float64 `json:"coordinates"`
-	} `json:"geometry"`
-	Properties struct {
-		Timestamp          string   `json:"timestamp"`
-		Altitude           int      `json:"altitude"`
-		Speed              int      `json:"speed"`
-		HorizontalAccuracy int      `json:"horizontal_accuracy"`
-		VerticalAccuracy   int      `json:"vertical_accuracy"`
-		Motion             []string `json:"motion"`
-		Pauses             bool     `json:"pauses"`
-		Activity           string   `json:"activity"`
-		DesiredAccuracy    int      `json:"desired_accuracy"`
-		Deferred           int      `json:"deferred"`
-		SignificantChange  int      `json:"significant_change"`
-		LocationsInPayload int      `json:"locations_in_payload"`
-		DeviceID           string   `json:"device_id"`
-		Wifi               string   `json:"wifi"`
-		BatteryState       string   `json:"battery_state"`
-		BatteryLevel       float64  `json:"battery_level"`
-	} `json:"properties"`
-}
-
 func FilterAndWriteLocationData(payload LocationPayload) {
 	entries := make([]LocationEntry, 1000)
 	var workingTime time.Time
 	var count int
 
-	lastPoint, exists := GetLastPoint()
-	fmt.Printf("%+v", lastPoint)
-	if exists {
-		workingTime = lastPoint.Timestamp
-	}
+	lastPoint := GetLastPoint()
+	workingTime = lastPoint.Timestamp
 
 	for _, location := range payload.Locations {
 		gapDuration, _ := time.ParseDuration("10s")
@@ -107,8 +69,8 @@ func FilterAndWriteLocationData(payload LocationPayload) {
 		}
 	}
 
+	GlobalCache.invalidateCache()
 	fmt.Printf("Added %d new entries to Influx\n", count)
-
 }
 
 func doesContain(s []string, e string) bool {

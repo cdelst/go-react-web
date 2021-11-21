@@ -6,32 +6,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/influxdata/influxdb-client-go/v2/api"
-
 	"github.com/pkg/errors"
 
 	"github.com/influxdata/influxdb-client-go/v2"
 )
-
-var (
-	InfluxClient influxdb2.Client
-	InfluxWrite  api.WriteAPI
-	InfluxQuery  api.QueryAPI
-)
-
-type LocationRecord struct {
-	Timestamp          time.Time `json:"timestamp"`
-	Latitude           float64   `json:"latitude"`
-	Longitude          float64   `json:"longitude"`
-	Altitude           int       `json:"altitude"`
-	Speed              int       `json:"speed"`
-	HorizontalAccuracy int       `json:"horizontal_accuracy"`
-	VerticalAccuracy   int       `json:"vertical_accuracy"`
-	Motion             string    `json:"motion"`
-	DeviceId           string    `json:"device_id"`
-	BatteryState       bool      `json:"battery_state"`
-	BatteryLevel       float64   `json:"battery_level"`
-}
 
 func WriteLocationEntry(entry LocationEntry) {
 	if entry.Type != "Feature" {
@@ -75,8 +53,8 @@ func InitInfluxClients() error {
 }
 
 // Bool used to tell if there is a real struct
-func GetLastPoint() (LocationRecord, bool) {
-	query := `from(bucket:"location")|> range(start: -14d) |> last()`
+func getLastPoint() LocationRecord {
+	query := `from(bucket:"location")|> range(start: -30d) |> last()`
 
 	// get QueryTableResult
 	result, err := InfluxQuery.Query(context.Background(), query)
@@ -85,8 +63,6 @@ func GetLastPoint() (LocationRecord, bool) {
 	}
 
 	var record LocationRecord
-
-	fmt.Printf("HEHEHEHE")
 
 	// Iterate over query response, filling struct
 	for result.Next() {
@@ -122,5 +98,49 @@ func GetLastPoint() (LocationRecord, bool) {
 	}
 
 	fmt.Printf("Parsed struct: %+v\n", record)
-	return record, true
+	return record
+}
+
+
+// TODO still, parse the records and return an array of coordinates for use with this:
+// https://deck.gl/docs/api-reference/aggregation-layers/cpu-grid-layer
+func getCoordinateListFromRange(start string) CoordinateList {
+	// Query gets data formatted like in a map, can use ValueByKey to select them:
+	/*
+	map[_measurement:location _start:2021-10-09 06:13:16.934519278 +0000 UTC _stop:2021-11-08 06:13:16.934519278 +0000 UTC
+	_time:2021-10-24 01:18:04 +0000 UTC alt:66 bat_level:0.6499999761581421 bat_state:false
+	hacc:11 id:CD6s lat:36.97199261359573 long:-122.05449562737229 motion:  result:_result
+	spd:-1 table:0 vacc:22]
+	*/
+	query := fmt.Sprintf(`from(bucket:"location")
+		|> range(start: %s) 
+		|> filter(
+			fn: (r) => r._field == "long" or r._field == "lat"
+		)
+		|> pivot(
+			rowKey:["_time"],
+    		columnKey: ["_field"],
+    		valueColumn: "_value"
+		)
+	`, start)
+
+	// get QueryTableResult
+	result, err := InfluxQuery.Query(context.Background(), query)
+	if err != nil {
+		panic(err)
+	}
+
+
+	var coords [][]float64
+	for {
+		if result.Next() {
+			record := result.Record()
+			coords = append(coords, []float64{record.ValueByKey("long").(float64), record.ValueByKey("lat").(float64)})
+		} else {
+			break
+		}
+	}
+
+	coordList := CoordinateList{Coordinates: coords}
+	return coordList
 }
