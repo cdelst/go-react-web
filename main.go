@@ -30,7 +30,7 @@ func main() {
 
 	// Serve frontend static files
 	router.Use(static.Serve("/", static.LocalFile("./client/build", true)))
-	
+
 	router.POST("/location", func(c *gin.Context) {
 		locationPayload, err := server.ParseLocationPayload(c.Request.Body)
 		if err != nil {

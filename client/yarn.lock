@@ -1236,6 +1236,15 @@
     "@math.gl/web-mercator" "^3.5.4"
     d3-hexbin "^0.2.1"
 
+"@deck.gl/aggregation-layers@^8.6.4":
+  version "8.6.4"
+  resolved "https://registry.yarnpkg.com/@deck.gl/aggregation-layers/-/aggregation-layers-8.6.4.tgz#6a0928b5d0122972ac8879a286842398cc384e17"
+  integrity sha512-tcHaY6wyFtfggqVd0jWJSQyvSq4aToDJDwVLEb6ki80sWWsgNw5+eM51yhAsCzY+/ce74dI7Ou7sAtrGLON+xA==
+  dependencies:
+    "@luma.gl/shadertools" "^8.5.10"
+    "@math.gl/web-mercator" "^3.5.4"
+    d3-hexbin "^0.2.1"
+
 "@deck.gl/carto@8.6.0":
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/@deck.gl/carto/-/carto-8.6.0.tgz#8c7a70ea9c2b1d4188103834b351d7623e33185d"

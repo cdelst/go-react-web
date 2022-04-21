@@ -1,6 +1,6 @@
 import React from "react";
 import DeckGL from "@deck.gl/react";
-import { LineLayer } from "@deck.gl/layers";
+import { GridLayer } from "@deck.gl/aggregation-layers";
 import { StaticMap } from "react-map-gl";
 import { MapView } from "@deck.gl/core";
 import "../css/deckGl.css";
@@ -16,22 +16,24 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 };
 
-// Data to be used by the LineLayer
-const data = [
-  {
-    sourcePosition: [-122.41669, 37.7853],
-    targetPosition: [-122.41669, 37.781],
-  },
-];
-
-export function DeckGLComponent() {
-  const layers = [new LineLayer({ id: "line-layer", data })];
+export function DeckGLComponent({ coordinateList }) {
+  const layer = new GridLayer({
+    id: "new-grid-layer",
+    coordinateList,
+    pickable: true,
+    extruded: true,
+    cellSize: 200,
+    elevationScale: 4,
+    getPosition: coordinateList,
+  });
 
   return (
     <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
-      controller={true}
-      layers={layers}
+      viewState={INITIAL_VIEW_STATE}
+      layers={[layer]}
+      getTooltip={({ object }) =>
+        object && `${object.position.join(", ")}\nCount: ${object.count}`
+      }
     >
       <MapView id="map" controller={true}>
         <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
