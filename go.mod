@@ -1,6 +1,8 @@
+// +heroku goVersion 1.18
+
 module github.com/cdelst/go-react-web
 
-go 1.14
+go 1.18
 
 require (
 	github.com/aws/aws-sdk-go v1.41.9 // indirect
