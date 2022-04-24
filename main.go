@@ -78,5 +78,5 @@ func main() {
 	}))
 
 	// Start and run the server
-	router.Run(os.Getenv("PORT"))
+	router.Run(":" + os.Getenv("PORT"))
 }
