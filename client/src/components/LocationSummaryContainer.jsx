@@ -8,12 +8,15 @@ const TenMinutes = 600000; // in ms
 const Geocodio = require("geocodio-library-node");
 const geocoder = new Geocodio(process.env.REACT_APP_GEOCODIO_API_KEY);
 
+const API = process.env.PORT === '3000' ?  'http://localhost:3000' : 'https://cdelst-website-2.herokuapp.com/';
+
+
 const LocationSummaryContainer = () => {
   let locationFromStorage = JSON.parse(localStorage.getItem("location"));
   const [location, setLocation] = useState(locationFromStorage);
 
   async function getLocation() {
-    let response = await fetch("api/query");
+    let response = await fetch(API + "api/query");
     return await response.json();
   }
 
