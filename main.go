@@ -2,10 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"net/http"
-	"os"
-
 	"github.com/cdelst/go-react-web/server"
+	"net/http"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/static"
@@ -29,7 +27,7 @@ func main() {
 	}
 
 	// Serve frontend static files
-	router.Use(static.Serve("/", static.LocalFile("./build", true)))
+	router.Use(static.Serve("/", static.LocalFile("./web", true)))
 
 	router.POST("/location", func(c *gin.Context) {
 		locationPayload, err := server.ParseLocationPayload(c.Request.Body)
@@ -78,5 +76,5 @@ func main() {
 	}))
 
 	// Start and run the server
-	router.Run(":" + os.Getenv("PORT"))
+	router.Run()
 }

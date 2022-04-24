@@ -54,7 +54,7 @@ func InitInfluxClients() error {
 
 // Bool used to tell if there is a real struct
 func getLastPoint() LocationRecord {
-	query := `from(bucket:"location")|> range(start: -30d) |> last()`
+	query := `from(bucket:"location")|> range(start: -720d) |> last()`
 
 	// get QueryTableResult
 	result, err := InfluxQuery.Query(context.Background(), query)

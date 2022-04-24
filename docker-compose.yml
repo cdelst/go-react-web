@@ -4,6 +4,6 @@ version: '2'
 services:
 
   service-name:
-    image: golang-heroku
+    image: full-stack
     env_file:
-      - /client/.env
+      - ./client/.env
