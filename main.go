@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"os"
 
 	"github.com/cdelst/go-react-web/server"
 
@@ -77,5 +78,5 @@ func main() {
 	}))
 
 	// Start and run the server
-	router.Run(":3001")
+	router.Run(os.Getenv("PORT"))
 }
