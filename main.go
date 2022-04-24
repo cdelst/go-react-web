@@ -9,23 +9,22 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load("client/.env")
-	if err != nil {
-		panic(err)
-	}
+	//err := godotenv.Load("client/.env")
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	// Set the router as the default one shipped with Gin
 	router := gin.Default()
-	err = server.InitInfluxClients()
+	err := server.InitInfluxClients()
 	defer server.InfluxClient.Close()
 	server.InitCache()
 
 	if err != nil {
-		panic(err)
+		return
 	}
 
 	// Serve frontend static files
@@ -34,7 +33,6 @@ func main() {
 	router.POST("/location", func(c *gin.Context) {
 		locationPayload, err := server.ParseLocationPayload(c.Request.Body)
 		if err != nil {
-			panic(err)
 			return
 		}
 
@@ -49,7 +47,7 @@ func main() {
 		val := server.GetLastPoint()
 		valBytes, err := json.Marshal(val)
 		if err != nil {
-			panic(err)
+			return
 		}
 		c.Data(http.StatusOK, "application/json", valBytes)
 	})
@@ -65,7 +63,7 @@ func main() {
 
 		valBytes, err := json.Marshal(coords)
 		if err != nil {
-			panic(err)
+			return
 		}
 
 		c.Data(http.StatusOK, "application/json", valBytes)
